@@ -6,6 +6,7 @@ About This Guide
 ----------------
 
 Purpose of this style guide is to encourage use of common coding practices for developing in embedded C.
+This document mainly based on `Espressif IoT Development Framework Style Guide <https://docs.espressif.com/projects/esp-idf/en/latest/esp32/contribute/style-guide.html>`__
 
 Style guide is a set of rules which are aimed to help create readable, maintainable, and robust code.
 By writing code which looks the same way across the code base we help others read and comprehend the code.
@@ -15,10 +16,6 @@ By following common patterns for module structure and by using language features
 
 C Code Formatting
 -----------------
-
-.. highlight:: c
-
-.. _style-guide-naming:
 
 Naming
 ^^^^^^
@@ -88,7 +85,9 @@ Always add single space after conditional and loop keywords
         // ...
     }
 
-Add single space around binary operators. No space is necessary for unary operators. It is okay to drop space around multiply and divide operators::
+Add single space around binary operators. No space is necessary for unary operators. It is okay to drop space around multiply and divide operators
+
+.. code-block::
 
     const int y = y0 + (x - x0) * (y1 - y0) / (x1 - x0);    // correct
 
