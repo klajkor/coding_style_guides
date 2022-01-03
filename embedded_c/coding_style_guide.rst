@@ -290,7 +290,7 @@ Union
         MyLine_st   my_line;
     } my_shape_ut;
 
-    // Usage:
+    // Initialization:
 
     void main(void)
     {
@@ -299,4 +299,43 @@ Union
 
     ...
     }
+
+
+Header file guards
+------------------
+
+* All public facing header files should have preprocessor guards.
+* A pragma is preferred
+
+.. code-block::
+
+    #pragma once
+
+* over the following pattern
+
+.. code-block::
+
+    #ifndef FILE_NAME_H
+    #define FILE_NAME_H
+    ...
+    #endif // FILE_NAME_H
+
+* In addition to guard macros, all C header files should have ``extern "C"`` guards to allow the header to be used from C++ code.
+* Note that the following order should be used: ``pragma once``, then any ``#include`` statements, then ``extern "C"`` guards
+
+.. code-block::
+
+    #pragma once
+
+    #include <stdint.h>
+
+    #ifdef __cplusplus
+    extern "C" {
+    #endif
+
+    /* declarations go here */
+
+    #ifdef __cplusplus
+    }
+    #endif
 
