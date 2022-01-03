@@ -19,11 +19,25 @@ C Code Formatting
 Naming
 ^^^^^^
 
+* Variables and functions should be snake_case.
 * Any variable or function which is only used in a single source file should be declared ``static``.
 * Public names (non-static variables and functions) should be namespaced with a per-component or per-unit prefix, to avoid naming collisions. ie ``core_get_node_id()`` or ``esp_console_run()``.
-* Variables and functions should be snake_case.
+* Constants are usually defined on a module level and their name is written in all capital letters with underscores separating words.
+* Constant definitions shall be enclosed in parantheses.
 * Starting the prefix with ``esp_`` for Espressif-specific, or with ``stm32_`` for STM32-specific names is optional, but should be consistent with any other names in the same component.
 * Avoid unnecessary abbreviations (ie shortening ``data`` to ``dat``), unless the resulting name would otherwise be very long.
+
+.. code-block::
+
+    #define MY_CONSTANT (123)
+    #define DELAY_1_MINUTE_IN_MSEC (60 * 1000)
+
+    int core_public_variable;
+    static int local_variable;
+
+    int core_get_node_id(void);
+    int core_get_node_name(int node_id);
+
 
 
 Indentation
@@ -228,7 +242,10 @@ Formatting Your Code
 
 
 Type Definitions
-^^^^^^^^^^^^^^^^
+----------------
+
+Simple Variable Type Definitions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 - Should be snake_case, ending with _t suffix
 
@@ -361,3 +378,10 @@ Use angle brackets for C standard library headers and other POSIX headers (``#in
 
 Use double quotes for all other headers (``#include "esp_log.h"``).
 
+Configuring the Code Style for a Project Using EditorConfig
+-----------------------------------------------------------
+
+* EditorConfig helps developers define and maintain consistent coding styles between different editors and IDEs.
+* The EditorConfig project consists of a file format for defining coding styles and a collection of text editor plugins that enable editors to read the file format and adhere to defined styles.
+* EditorConfig files are easily readable and they work nicely with version control systems.
+* For more information, see `EditorConfig <https://editorconfig.org>`_ Website.
