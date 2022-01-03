@@ -20,7 +20,9 @@ Naming
 ^^^^^^
 
 * Any variable or function which is only used in a single source file should be declared ``static``.
-* Public names (non-static variables and functions) should be namespaced with a per-component or per-unit prefix, to avoid naming collisions. ie ``core_get_node_id()`` or ``esp_console_run()``. Starting the prefix with ``esp_`` for Espressif-specific names is optional, but should be consistent with any other names in the same component.
+* Public names (non-static variables and functions) should be namespaced with a per-component or per-unit prefix, to avoid naming collisions. ie ``core_get_node_id()`` or ``esp_console_run()``.
+* Variables and functions should be snake_case.
+* Starting the prefix with ``esp_`` for Espressif-specific, or with ``stm32_`` for STM32-specific names is optional, but should be consistent with any other names in the same component.
 * Avoid unnecessary abbreviations (ie shortening ``data`` to ``dat``), unless the resulting name would otherwise be very long.
 
 
@@ -66,7 +68,7 @@ Vertical Space
 Horizontal Space
 ^^^^^^^^^^^^^^^^
 
-- Always add single space after conditional and loop keywords
+- Always add single space after conditional and loop keywords.
 
 .. code-block::
 
@@ -86,7 +88,7 @@ Horizontal Space
         // ...
     }
 
-- Add single space around binary operators. No space is necessary for unary operators. It is okay to drop space around multiply and divide operators
+- Add single space around binary operators. No space is necessary for unary operators. It is okay to drop space around multiply and divide operators.
 
 .. code-block::
 
@@ -102,7 +104,7 @@ Horizontal Space
 
 - No space is necessary around ``.`` and ``->`` operators.
 - Sometimes adding horizontal space within a line can help make code more readable.
-- For example, you can add space to align function arguments
+- For example, you can add space to align function arguments:
 
 .. code-block::
 
@@ -120,7 +122,7 @@ Horizontal Space
 Braces
 ^^^^^^
 
-- Function definition should have a brace on a separate line
+- Function definition should have a brace on a separate line.
 
 .. code-block::
 
@@ -135,7 +137,7 @@ Braces
 
     }
 
-- Within a function, place opening brace on a separate line with conditional and loop statements
+- Within a function, place opening brace on a separate line with conditional and loop statements.
 
 .. code-block::
 
@@ -153,7 +155,7 @@ Comments
 
 - Use ``//`` for single line comments. For multi-line comments it is okay to use either ``//`` on each line or a ``/* */`` block.
 - Although not directly related to formatting, here are a few notes about using comments effectively.
-- Don't use single comments to disable some functionality
+- Don't use single comments to disable some functionality.
 
 .. code-block::
 
@@ -176,9 +178,13 @@ Comments
         start_timer();
     }
 
-- Same goes for ``#if 0 ... #endif`` blocks. Remove code block completely if it is not used. Otherwise, add comment explaining why the block is disabled. Don't use ``#if 0 ... #endif`` or comments to store code snippets which you may need in the future.
-
-- Don't add trivial comments about authorship and change date. You can always look up who modified any given line using git. E.g. this comment adds clutter to the code without adding any useful information
+- Same goes for ``#if 0 ... #endif`` blocks.
+- Remove code block completely if it is not used.
+- Otherwise, add comment explaining why the block is disabled.
+- Don't use ``#if 0 ... #endif`` or comments to store code snippets which you may need in the future.
+- Don't add trivial comments about authorship and change date.
+- You can always look up who modified any given line using git.
+- E.g. this comment adds clutter to the code without adding any useful information:
 
 .. code-block::
 
@@ -233,9 +239,9 @@ Type Definitions
 Enum
 ^^^^
 
-- Enums should be defined through the ``typedef`` and be namespaced
-- Namespace should be snake_case, ending with **_et** suffix
-- Last entry should be addedd to enums, called XYZ_LAST
+- Enums should be defined through the ``typedef`` and be namespaced.
+- Namespace should be snake_case, ending with **_et** suffix.
+- Last entry should be addedd to enums, called XYZ_LAST.
 - It makes it possible to iterate over the content of the enum.
 - This last enum value gives you the total number of entries in case there are no direct value assigments to enum items.
 
@@ -253,7 +259,7 @@ Structure
 ^^^^^^^^^
 
 - Structures should be defined through the ``typedef`` and be namespaced.
-- Struct names and namespaces shall be written in **CamelCase** with a capital letter as beginning and ending with **_st** suffix
+- Struct names and namespaces shall be written in **CamelCase** with a capital letter as beginning and ending with **_st** suffix.
 - Member variables and methods shall be in snake_case.
 
 .. code-block::
@@ -278,7 +284,7 @@ Union
 ^^^^^
 
 - Unions should be defined through the ``typedef`` and be namespaced.
-- Namespace should be snake_case, ending with **_ut** suffix
+- Namespace should be snake_case, ending with **_ut** suffix.
 - Member variables shall be in snake_case.
 
 .. code-block::
@@ -305,13 +311,13 @@ Header file guards
 ------------------
 
 * All public facing header files should have preprocessor guards.
-* A pragma is preferred
+* A pragma is preferred:
 
 .. code-block::
 
     #pragma once
 
-* over the following pattern
+* over the following pattern:
 
 .. code-block::
 
@@ -321,7 +327,7 @@ Header file guards
     #endif // FILE_NAME_H
 
 * In addition to guard macros, all C header files should have ``extern "C"`` guards to allow the header to be used from C++ code.
-* Note that the following order should be used: ``pragma once``, then any ``#include`` statements, then ``extern "C"`` guards
+* Note that the following order should be used: ``pragma once``, then any ``#include`` statements, then ``extern "C"`` guards.
 
 .. code-block::
 
