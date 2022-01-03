@@ -27,12 +27,15 @@ Naming
 Indentation
 ^^^^^^^^^^^
 
-Use 4 spaces for each indentation level. Don't use tabs for indentation. Configure the editor to emit 4 spaces each time you press tab key.
+* Use 4 spaces for each indentation level.
+* Don't use tabs for indentation.
+* Configure the editor to emit 4 spaces each time you press tab key.
 
 Vertical Space
 ^^^^^^^^^^^^^^
 
-Place one empty line between functions. Don't begin or end a function with an empty line.
+- Place one empty line between functions.
+- Don't begin or end a function with an empty line.
 
 .. code-block::
 
@@ -58,12 +61,12 @@ Place one empty line between functions. Don't begin or end a function with an em
         }
     }
 
-The maximum line length is 120 characters as long as it doesn't seriously affect the readability.
+- The maximum line length is 120 characters as long as it doesn't seriously affect the readability.
 
 Horizontal Space
 ^^^^^^^^^^^^^^^^
 
-Always add single space after conditional and loop keywords
+- Always add single space after conditional and loop keywords
 
 .. code-block::
 
@@ -83,7 +86,7 @@ Always add single space after conditional and loop keywords
         // ...
     }
 
-Add single space around binary operators. No space is necessary for unary operators. It is okay to drop space around multiply and divide operators
+- Add single space around binary operators. No space is necessary for unary operators. It is okay to drop space around multiply and divide operators
 
 .. code-block::
 
@@ -97,18 +100,19 @@ Add single space around binary operators. No space is necessary for unary operat
     const int y = y0+(x-x0)*(y1-y0)/(x1-x0);                // INCORRECT
 
 
-No space is necessary around ``.`` and ``->`` operators.
-
-Sometimes adding horizontal space within a line can help make code more readable. For example, you can add space to align function arguments
+- No space is necessary around ``.`` and ``->`` operators.
+- Sometimes adding horizontal space within a line can help make code more readable.
+- For example, you can add space to align function arguments
 
 .. code-block::
 
-    core__gpio_connect_in_signal(PIN_CAM_D6,   I2S0I_DATA_IN14_IDX, false);
-    core__gpio_connect_in_signal(PIN_CAM_D7,   I2S0I_DATA_IN15_IDX, false);
-    core__gpio_connect_in_signal(PIN_CAM_HREF, I2S0I_H_ENABLE_IDX,  false);
-    core__gpio_connect_in_signal(PIN_CAM_PCLK, I2S0I_DATA_IN15_IDX, false);
+    core_gpio_connect_in_signal(PIN_CAM_D6,   I2S0I_DATA_IN14_IDX, false);
+    core_gpio_connect_in_signal(PIN_CAM_D7,   I2S0I_DATA_IN15_IDX, false);
+    core_gpio_connect_in_signal(PIN_CAM_HREF, I2S0I_H_ENABLE_IDX,  false);
+    core_gpio_connect_in_signal(PIN_CAM_PCLK, I2S0I_DATA_IN15_IDX, false);
 
-- Note however that if someone goes to add new line with a longer identifier as first argument (e.g.  ``PIN_CAM_VSYNC``), it will not fit. So other lines would have to be realigned, adding meaningless changes to the commit.
+- Note however that if someone goes to add new line with a longer identifier as first argument (e.g.  ``PIN_CAM_VSYNC``), it will not fit.
+- So other lines would have to be realigned, adding meaningless changes to the commit.
 - Therefore, use horizontal alignment sparingly, especially if you expect new lines to be added to the list later.
 - **Never** use TAB characters for horizontal alignment.
 - **Never** add trailing whitespace at the end of the line.
@@ -147,13 +151,11 @@ Braces
 Comments
 ^^^^^^^^
 
-Use ``//`` for single line comments. For multi-line comments it is okay to use either ``//`` on each line or a ``/* */`` block.
-
-Although not directly related to formatting, here are a few notes about using comments effectively.
-
+- Use ``//`` for single line comments. For multi-line comments it is okay to use either ``//`` on each line or a ``/* */`` block.
+- Although not directly related to formatting, here are a few notes about using comments effectively.
 - Don't use single comments to disable some functionality
 
-::
+.. code-block::
 
     void init_something()
     {
@@ -164,7 +166,7 @@ Although not directly related to formatting, here are a few notes about using co
 
 - If some code is no longer required, remove it completely. If you need it you can always look it up in git history of this file. If you disable some call because of temporary reasons, with an intention to restore it in the future, add explanation on the adjacent line
 
-::
+.. code-block::
 
     void init_something()
     {
@@ -178,7 +180,7 @@ Although not directly related to formatting, here are a few notes about using co
 
 - Don't add trivial comments about authorship and change date. You can always look up who modified any given line using git. E.g. this comment adds clutter to the code without adding any useful information
 
-::
+.. code-block::
 
     void init_something()
     {
@@ -194,13 +196,107 @@ Line Endings
 ^^^^^^^^^^^^
 
 - Commits should only contain files with LF (Unix style) endings.
-- Windows users can configure git to check out CRLF (Windows style) endings locally and commit LF endings by setting the ``core.autocrlf`` setting. `Github has a document about setting this option <github-line-endings>`.
-- If you accidentally have some commits in your branch that add LF endings, you can convert them to Unix by running this command in an MSYS2 or Unix terminal (change directory to the IDF working directory and check the correct branch is currently checked out, beforehand):
+- Windows users can configure git to check out CRLF (Windows style) endings locally and commit LF endings by setting the ``core.autocrlf`` setting.
+- `Github has a document about setting this option <https://docs.github.com/en/get-started/getting-started-with-git/configuring-git-to-handle-line-endings>`__
+- If you accidentally have some commits in your branch that add LF endings, you can convert them to Unix by running this command in an MSYS2 or Unix terminal.
+- Change directory to the IDF working directory and check the correct branch is currently checked out, beforehand:
 
 .. code-block:: bash
 
   git rebase --exec 'git diff-tree --no-commit-id --name-only -r HEAD | xargs dos2unix && git commit -a --amend --no-edit --allow-empty' master
 
-(Note that this line rebases on master, change the branch name at the end to rebase on another branch.)
+- Note that this line rebases on master, change the branch name at the end to rebase on another branch.
+- For updating a single commit, it's possible to run ``dos2unix FILENAME`` and then run ``git commit --amend``
 
-For updating a single commit, it's possible to run ``dos2unix FILENAME`` and then run ``git commit --amend``
+Formatting Your Code
+^^^^^^^^^^^^^^^^^^^^
+
+- You can use ``astyle`` program to format your code according to the above recommendations.
+- If you are writing a file from scratch, or doing a complete rewrite, feel free to re-format the entire file.
+- If you are changing a small portion of file, don't re-format the code you didn't change. This will help others when they review your changes.
+- To re-format a file, run:
+
+.. code-block:: bash
+
+    tools/format.sh components/my_component/file.c
+
+
+Type Definitions
+^^^^^^^^^^^^^^^^
+
+- Should be snake_case, ending with _t suffix
+
+.. code-block::
+
+    typedef int signed_32_bit_t;
+
+Enum
+^^^^
+
+- Enums should be defined through the ``typedef`` and be namespaced
+- Namespace should be snake_case, ending with **_et** suffix
+- Last entry should be addedd to enums, called XYZ_LAST
+- It makes it possible to iterate over the content of the enum.
+- This last enum value gives you the total number of entries in case there are no direct value assigments to enum items.
+
+.. code-block::
+
+    typedef enum
+    {
+        MODULE_FOO_ONE,
+        MODULE_FOO_TWO,
+        MODULE_FOO_THREE,
+        MODULE_FOO_MAX
+    } module_foo_t;
+
+Structure
+^^^^^^^^^
+
+- Structures should be defined through the ``typedef`` and be namespaced.
+- Struct names and namespaces shall be written in **CamelCase** with a capital letter as beginning and ending with **_st** suffix
+- Member variables and methods shall be in snake_case.
+
+.. code-block::
+
+    typedef struct
+    {
+        int x;
+        int y;
+    } MyPoint_st;
+
+    typdef struct {
+        MyPoint_st center;
+        int radius;
+    } MyCircle_st;
+
+    typdef struct {
+        MyPoint_st start;
+        MyPoint_st end;
+    } MyLine_st;
+
+Union
+^^^^^
+
+- Unions should be defined through the ``typedef`` and be namespaced.
+- Namespace should be snake_case, ending with **_ut** suffix
+- Member variables shall be in snake_case.
+
+.. code-block::
+
+    // Definition:
+
+    union {
+        MyCircle_st my_circle;
+        MyLine_st   my_line;
+    } my_shape_ut;
+
+    // Usage:
+
+    void main(void)
+    {
+        my_shape_ut shape1 = {.my_circle = {{1,2}, 10}};    // Initialize the union using the circle member
+        my_shape_ut shape2 = {.my_line = {{1,2}, {3,4}}};   // Initialize the union using the line member
+
+    ...
+    }
+
