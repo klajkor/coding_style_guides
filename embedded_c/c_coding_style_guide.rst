@@ -1,6 +1,8 @@
 Embedded C Coding Style Guide
 =============================
 
+.. contents:: Table of Contents
+   :depth: 2
 
 About This Guide
 ----------------
