@@ -339,3 +339,19 @@ Header file guards
     }
     #endif
 
+Include statements
+------------------
+
+When writing ``#include`` statements, try to maintain the following order:
+
+* C standard library headers.
+* Other POSIX standard headers and common extensions to them (such as ``sys/queue.h``.)
+* Common MCU specific headers, such as IDF headers (``esp_log.h``, ``esp_system.h``, ``esp_timer.h``, ``esp_sleep.h``, etc.)
+* Headers of other components, such as FreeRTOS.
+* Public headers of the current component.
+* Private headers.
+
+Use angle brackets for C standard library headers and other POSIX headers (``#include <stdio.h>``).
+
+Use double quotes for all other headers (``#include "esp_log.h"``).
+
